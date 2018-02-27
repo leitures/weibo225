@@ -1,0 +1,7 @@
+CREATE TABLE `weibo_user` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `originId` varchar(255) DEFAULT NULL,
+  `currentId` varchar(255) DEFAULT NULL,
+  `pageUrl` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
