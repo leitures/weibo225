@@ -1,0 +1,28 @@
+{
+  "name": "weibo225",
+  "version": "1.0.0",
+  "description": "微博2月25日起发生大量封号事件，此平台为临时救助查询小号使用。",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smilefishes/weibo225.git"
+  },
+  "keywords": [
+    "weibo"
+  ],
+  "author": "leitures",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smilefishes/weibo225/issues"
+  },
+  "homepage": "https://github.com/smilefishes/weibo225#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.2",
+    "mysql": "^2.15.0"
+  }
+}
