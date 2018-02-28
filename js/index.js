@@ -94,6 +94,10 @@ var weibo255 = new Vue({
             skin: 'msg',
             time: 2
           });
+          that.ruleForm.originId = '';
+          that.ruleForm.currentId = '';
+          that.ruleForm.pageUrl = '';
+
         })
       } else{
         layer.open({
