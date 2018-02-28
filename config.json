@@ -1,7 +1,7 @@
 {
-    "databaseHost":"127.0.0.1",
+    "databaseHost":"104.131.144.252",
     "databasePort":3306,
-    "databaseUser":"leitures",
+    "databaseUser":"root",
     "databasePwd":"951128",
     "databaseName":"mysql"
 }
