@@ -2,40 +2,27 @@ var weibo255 = new Vue({
   el: '#vue-home',
   data: {
     ruleForm: {
-      id_num: '',
-      name: '',
-      phone_num: ''
+      originId: '',
+      currentId: '',
+      pageUrl: ''
     },
     activeIndex: 'list',
     pageContent: 'list',
     tableData: [],
     tableData2: [],
+    fullscreenLoading: false,
     keyword: '',
     rules: {
-      id_num: [{
-          required: true,
-          message: '请输入身份证号',
-          trigger: 'blur'
-        },
-        {
-          min: 18,
-          max: 18,
-          message: '请输入正确的18位身份证号',
-          trigger: 'blur'
-        }
-      ],
-      phone_num: [{
-          required: true,
-          message: '请输入手机号',
-          trigger: 'blur'
-        },
-        {
-          min: 11,
-          max: 11,
-          message: '请输入正确的11位手机号',
-          trigger: 'blur'
-        }
-      ]
+      originId: [{
+        required: true,
+        message: '请输入原微博号',
+        trigger: 'blur'
+      }],
+      currentId: [{
+        required: true,
+        message: '请输入新微博号',
+        trigger: 'blur'
+      }]
     }
 
   },
@@ -46,12 +33,17 @@ var weibo255 = new Vue({
     handleSelect: function(key, keyPath) {
       var that = this;
       this.pageContent = key;
+      if(key == 'list'){
+        this.getAllUserData();
+      }
       console.log(key, keyPath);
     },
     getAllUserData: function() {
       var that = this;
+      this.fullscreenLoading = true;
+      this.tableData = [];
       axios.get(config.host + '/all_users').then(function(res) {
-        console.log(res.data.data.length);
+        that.fullscreenLoading = false;
         for (let i = 0; i < res.data.data.length; i++) {
           var tempData = {
             originId: res.data.data[i].originId,
@@ -65,6 +57,8 @@ var weibo255 = new Vue({
 
     clickSearch: function() {
       var that = this;
+      this.fullscreenLoading = true;
+      this.tableData2 = [];
       axios({
         method: 'get',
         url: config.host + '/search_user',
@@ -73,6 +67,7 @@ var weibo255 = new Vue({
         }
         // withCredentials: true
       }).then(function(res) {
+        that.fullscreenLoading = false;
         for (let i = 0; i < res.data.data.length; i++) {
           var tempData = {
             originId: res.data.data[i].originId,
@@ -83,9 +78,31 @@ var weibo255 = new Vue({
         }
       });
     },
-
     openPageUrl: function(pageUrl) {
       window.location.href = pageUrl;
     },
+    submitInfo: function() {
+      var that = this;
+      if (this.ruleForm.originId && this.ruleForm.currentId) {
+        axios.post(config.host + '/save_userinfo', {
+          originId: that.ruleForm.originId,
+          currentId: that.ruleForm.currentId,
+          pageUrl: that.ruleForm.pageUrl
+        }).then(function(res) {
+          layer.open({
+            content: '信息添加成功！祝微博生活继续欢乐',
+            skin: 'msg',
+            time: 2
+          });
+        })
+      } else{
+        layer.open({
+          content: '您还有未填写的信息(⊙o⊙)哦',
+          skin: 'msg',
+          time: 2
+        });
+      }
+
+    }
   }
 })
