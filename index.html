@@ -84,7 +84,7 @@
          <el-form-item label="新ID" prop="currentId">
            <el-input placeholder="请输入现微博名" v-model="ruleForm.currentId" style="line-height:0.5rem"></el-input>
          </el-form-item>
-         <el-form-item label="主页url (填写后在列表里点击可直达=ww=)">
+         <el-form-item label="主页url (填写后在列表里点击可直达=ww=)" prop="pageUrl">
            <el-input placeholder="请输入新的主页地址" v-model="ruleForm.pageUrl" style="line-height:0.5rem"></el-input>
          </el-form-item>
 
@@ -97,7 +97,12 @@
     </div>
 
     <div class="scroll-div" v-show="pageContent == 'fun'">
-      还在写qaq
+      <img src="../img/quede.jpg" style="width:100%"/>
+      <div class="self-desc">
+        <p>
+          赶时间做得有点粗暴，请各位见谅。目前主要还是靠大家人力登记信息，希望各位小伙伴们的首页能恢复往日的逗比、日常和缺德。也希望大家能交到更多新朋友qwq
+        </p>
+      </div>
     </div>
 
 

@@ -62,3 +62,12 @@ html, body {
   height: 1.33rem /* 100/75 */;
   margin-left: 2.24rem /* 168/75 */;
 }
+
+.self-desc{
+  text-align: center;
+  width: 100%;
+}
+
+.self-desc p{
+  padding: .67rem /* 50/75 */;
+}

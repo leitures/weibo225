@@ -22,6 +22,11 @@ var weibo255 = new Vue({
         required: true,
         message: '请输入新微博号',
         trigger: 'blur'
+      }],
+      pageUrl: [{
+        required: true,
+        message: '请输入新微博号',
+        trigger: 'blur'
       }]
     }
 
@@ -85,7 +90,7 @@ var weibo255 = new Vue({
       var that = this;
       this.fullscreenLoading = true;
 
-      if (this.ruleForm.originId && this.ruleForm.currentId) {
+      if (this.ruleForm.originId && this.ruleForm.currentId && this.ruleForm.pageUrl) {
         axios.post(config.host + '/save_userinfo', {
           originId: that.ruleForm.originId,
           currentId: that.ruleForm.currentId,
