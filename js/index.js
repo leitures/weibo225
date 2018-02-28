@@ -88,9 +88,9 @@ var weibo255 = new Vue({
     },
     submitInfo: function() {
       var that = this;
-      this.fullscreenLoading = true;
 
       if (this.ruleForm.originId && this.ruleForm.currentId && this.ruleForm.pageUrl) {
+        this.fullscreenLoading = true;
         axios.post(config.host + '/save_userinfo', {
           originId: that.ruleForm.originId,
           currentId: that.ruleForm.currentId,
