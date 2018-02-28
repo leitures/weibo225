@@ -24,20 +24,65 @@
 <body>
   <!-- <script src="../js/layer.js"></script> -->
   <div id="vue-home" v-cloak>
-    <el-menu
-  :default-active="activeIndex"
-  class="el-menu-demo"
-  mode="horizontal"
-  @select="handleSelect"
-  background-color="#4396fb"
-  text-color="#fff"
-  active-text-color="#ffdba1">
-  <el-menu-item index="1">灾民列表</el-menu-item>
-  <el-menu-item index="2">消息中心</el-menu-item>
+    <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" @select="handleSelect" background-color="#4396fb" text-color="#fff" active-text-color="#ffdba1">
+      <el-menu-item index="list" style="width:25%;display: flex;flex-direction: row;justify-content: center;">灾民列表</el-menu-item>
+      <el-menu-item index="search" style="width:25%;display: flex;flex-direction: row;justify-content: center;">基友查询</el-menu-item>
+      <el-menu-item index="register" style="width:25%;display: flex;flex-direction: row;justify-content: center;">信息登记</el-menu-item>
+      <el-menu-item index="fun" style="width:25%;display: flex;flex-direction: row;justify-content: center;">今日缺德</el-menu-item>
+    </el-menu>
 
-  <el-menu-item index="3">消息中心</el-menu-item>
-  <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>
-</el-menu>
+    <div class="scroll-div" v-show="pageContent == 'list'">
+      <el-table :data="tableData" border style="width: 100%">
+        <el-table-column sortable label="大号" width="180">
+          <template scope="scope">
+            <span style="" v-on:click="openPageUrl(scope.row.pageUrl)">{{ scope.row.originId }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column sortable label="小号" width="180">
+          <template scope="scope">
+            <span style="" v-on:click="openPageUrl(scope.row.pageUrl)">{{ scope.row.currentId }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
+
+
+
+
+
+    <div class="scroll-div" v-show="pageContent == 'search'">
+      <div class="searchMenu">
+        <div class="searchInput">
+          <el-input v-model="keyword" placeholder="请输入关键词" size="medium"></el-input>
+        </div>
+        <div class="searchBtn">
+          <el-button type="primary" icon="el-icon-search" size="small" style="margin-left:10px" v-on:click="clickSearch"></el-button>
+        </div>
+      </div>
+
+      <el-table :data="tableData2" border style="width: 100%">
+        <el-table-column sortable label="大号" width="180">
+          <template scope="scope">
+            <span style="" v-on:click="openPageUrl(scope.row.pageUrl)">{{ scope.row.originId }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column sortable label="小号" width="180">
+          <template scope="scope">
+            <span style="" v-on:click="openPageUrl(scope.row.pageUrl)">{{ scope.row.currentId }}</span>
+          </template>
+        </el-table-column>
+      </el-table>
+
+    </div>
+
+    <div class="scroll-div" v-show="pageContent == 'register'">
+      登记
+    </div>
+
+    <div class="scroll-div" v-show="pageContent == 'fun'">
+      缺德
+    </div>
+
 
 
   </div>
@@ -47,6 +92,7 @@
   <script src="../js/vue.js"></script>
   <script src="../js/ele2/index.js"></script>
   <script src="../js/axios.min.js"></script>
+  <script src="../js/config.js"></script>
   <script src="../js/index.js"></script>
 </body>
 

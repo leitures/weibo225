@@ -6,7 +6,11 @@ var weibo255 = new Vue({
       name: '',
       phone_num: ''
     },
-    activeIndex: '1',
+    activeIndex: 'list',
+    pageContent: 'list',
+    tableData: [],
+    tableData2: [],
+    keyword: '',
     rules: {
       id_num: [{
           required: true,
@@ -36,14 +40,52 @@ var weibo255 = new Vue({
 
   },
   mounted: function() {
-    this.science();
+    this.getAllUserData();
   },
   methods: {
-    science: function() {
-      console.log('welcome to weibo 255 project');
-    },
     handleSelect: function(key, keyPath) {
-        console.log(key, keyPath);
-      }
+      var that = this;
+      this.pageContent = key;
+      console.log(key, keyPath);
+    },
+    getAllUserData: function() {
+      var that = this;
+      axios.get(config.host + '/all_users').then(function(res) {
+        console.log(res.data.data.length);
+        for (let i = 0; i < res.data.data.length; i++) {
+          var tempData = {
+            originId: res.data.data[i].originId,
+            currentId: res.data.data[i].currentId,
+            pageUrl: res.data.data[i].pageUrl
+          }
+          that.tableData.push(tempData)
+        }
+      })
+    },
+
+    clickSearch: function() {
+      var that = this;
+      axios({
+        method: 'get',
+        url: config.host + '/search_user',
+        params: {
+          keyword: that.keyword
+        }
+        // withCredentials: true
+      }).then(function(res) {
+        for (let i = 0; i < res.data.data.length; i++) {
+          var tempData = {
+            originId: res.data.data[i].originId,
+            currentId: res.data.data[i].currentId,
+            pageUrl: res.data.data[i].pageUrl
+          }
+          that.tableData2.push(tempData)
+        }
+      });
+    },
+
+    openPageUrl: function(pageUrl) {
+      window.location.href = pageUrl;
+    },
   }
 })
