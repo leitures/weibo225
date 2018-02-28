@@ -83,12 +83,15 @@ var weibo255 = new Vue({
     },
     submitInfo: function() {
       var that = this;
+      this.fullscreenLoading = true;
+
       if (this.ruleForm.originId && this.ruleForm.currentId) {
         axios.post(config.host + '/save_userinfo', {
           originId: that.ruleForm.originId,
           currentId: that.ruleForm.currentId,
           pageUrl: that.ruleForm.pageUrl
         }).then(function(res) {
+          that.fullscreenLoading = false;
           layer.open({
             content: '信息添加成功！祝微博生活继续欢乐',
             skin: 'msg',
